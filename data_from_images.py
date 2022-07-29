@@ -6,15 +6,11 @@ import os
 from openpyxl import Workbook, load_workbook
 import openpyxl 
 from openpyxl.styles import PatternFill, Border, Side, Alignment, Font, fills
-from openpyxl.formatting.rule import ColorScaleRule, CellIsRule, FormulaRule
-from openpyxl.styles.differential import DifferentialStyle
-from openpyxl.formatting import Rule
-from openpyxl import formatting, styles
-#import pandas as pd
 
 # Taking all images files from folder
 images = glob.glob("*.jpg")
 result = []
+
 for image in images:
     # Path to the image 
     imagename = image
@@ -34,34 +30,20 @@ ws1.append(headers)
 # Inserting values 
 for row in result:   
     ws1.append(row)
-#wb.save("Images_Data.xlsx")
-# Changing the font and color of headers
-light_green_font = Font(color='00FF00', italic=True)
-for cell in ws1["1:1"]:
-    cell.font = light_green_font
 
-# df = pd.read_excel("Image_Data.xlsx")
-# data = df.loc[(df['Image Height'] >= 1000) & (df['Image Width'] >= 1000)]
-# print(data)
-# Iterating on columns to get the cell
+# Changing the font and color of images 
+red_font = Font(color='FF0000', italic=True)
 for col1 in ws1['E']:
     if len(col1.value) > 3:
-        col1.value
-        #print(col1.value)
-
+        col1.font=red_font
+            
 for col2 in ws1['F']:
     if len(col2.value) > 3:
-        col2.value
-        #print(col2.value)
-
-# a = col1.value
-# b = col2.value
-# print(a)
-# print(b)
-
-my_fill = openpyxl.styles.colors.Color(rgb='00FF0000')
-my_fill = openpyxl.styles.fills.PatternFill(patternType='solid', fgColor=my_fill)
-col1.fill = my_fill
-col2.fill = my_fill
+        col2.font=red_font
+        
+# Changing the font and color of header
+blue_font = Font(color='0000EE', italic=True)
+for cell in ws1["1:1"]:
+    cell.font = blue_font
 
 wb.save("Images_Data.xlsx")
